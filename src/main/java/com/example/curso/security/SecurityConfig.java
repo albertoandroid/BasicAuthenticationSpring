@@ -1,11 +1,13 @@
 package com.example.curso.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -14,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception{
 		auth.inMemoryAuthentication().withUser("alberto").password("alberto").roles("ADMIN");
-		auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
+		auth.inMemoryAuthentication().withUser("user").password("b14361404c78ffd549c3db443c3fede2f3e534d73f78f7731ed97d4a436a9fd9db05ee8b325c0ad36438b43fec851c204fc1c1edb21d941c0e9e2c1ce2").roles("USER");
 	}
 	
 	@Override
@@ -26,5 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/*/escribirDB/**").hasRole("ADMIN")
 		.and()
 		.httpBasic();
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Bean
+	public static NoOpPasswordEncoder passwordEncoder() {
+		return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
 	}
 }
