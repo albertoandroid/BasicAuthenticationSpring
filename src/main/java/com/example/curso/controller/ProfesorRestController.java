@@ -18,7 +18,7 @@ public class ProfesorRestController {
 	@Autowired
 	ProfesorServiceImpl profesorService;
 	
-	@RequestMapping(value = "/todos_profesores", method = RequestMethod.GET)
+	@RequestMapping(value = "/todos_profesores_public", method = RequestMethod.GET)
 	public ResponseEntity<List<Profesor>> listAllProfessor(){
 		List<Profesor> profesores = profesorService.findAllProfessors();
 		if(profesores.isEmpty()){
@@ -26,4 +26,23 @@ public class ProfesorRestController {
 		}
 		return new ResponseEntity<List<Profesor>>(profesores, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/todos_profesores_admin", method = RequestMethod.GET)
+	public ResponseEntity<List<Profesor>> listAllProfessoradmin(){
+		List<Profesor> profesores = profesorService.findAllProfessors();
+		if(profesores.isEmpty()){
+			return new ResponseEntity<List<Profesor>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Profesor>>(profesores, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/todos_profesores_user", method = RequestMethod.GET)
+	public ResponseEntity<List<Profesor>> listAllProfessorAdmin(){
+		List<Profesor> profesores = profesorService.findAllProfessors();
+		if(profesores.isEmpty()){
+			return new ResponseEntity<List<Profesor>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Profesor>>(profesores, HttpStatus.OK);
+	}
+	
 }
